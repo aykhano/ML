@@ -79,3 +79,69 @@ y = df[["Sales"]]
 #Model
 
 X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.20, random_state=1)
+
+y_test.shape
+y_train.shape
+
+# reg_model = LinearRegression()
+# reg_model.fit(X_train, y_train)
+
+reg_model = LinearRegression().fit(X_train, y_train)
+
+# sabit (b - bias)
+reg_model.intercept_
+
+# coefficents (w - weights)
+reg_model.coef_
+
+#### Tahmin####
+
+# What is the expected value of sales based on the following observations?
+
+# TV: 30
+
+# radio: 10
+
+# newspaper: 40
+
+# 2.90
+
+# 0.0468431 0.17854434, 0.00258619
+
+# Sales = 2.90 + TV * 0.04 + radio * 0.17 + newspaper * 0.002
+
+# 2.90794702 + 30* 0.0468431 + 10*0.17854434 + 40+ 0.00258619
+
+# new_data = [[30], [10], [40]]
+
+# new_data = pd . DataFrame(new_data).T
+
+# reg_model.predict(new_data)
+
+
+#########   Tahmin basarisi deyerlendirme  ########
+
+#Train RMSE
+y_pred = reg_model.predict(X_train)
+np.sqrt(mean_squared_error(y_train, y_pred))
+
+#TRAIN RKare
+reg_model.score(X_train, y_train)
+
+# Test RMSE
+y_pred = reg_model.predict(X_test)
+np.sqrt(mean_squared_error(y_test, y_pred))
+
+# Test RKare
+reg_model.score(X_test, y_test)
+
+# 10 katlı CV Rmse
+np.mean(np.sqrt(-cross_val_score(reg_model, 
+                                 X,
+                                 y,
+                                 cv=10,
+                                 scoring="neg_mean_squared_error")))
+
+
+#Simple Linear Regression with Gradient Descent from Scratch
+
