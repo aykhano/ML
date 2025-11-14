@@ -50,3 +50,32 @@ g.set_xlabel("Tv Hacamalari")
 plt.xlim(-10, 310)
 plt.ylim(bottom=0)
 plt.show()
+
+# Tahmin Basarisi
+
+# MSE
+y_pred = reg_model.predict(X)
+mean_squared_error(y, y_pred)
+y.mean()
+y.std()
+
+# RMSE
+np.sqrt(mean_squared_error(y, y_pred))
+
+# MAE
+mean_absolute_error(y, y_pred)
+
+# R-KARE
+reg_model.score(X, y)
+
+#Multiple Linear Regression
+
+df = pd.read_csv("datasets/advertising.csv")
+
+X = df.drop('sales', axis=1)
+
+y = df[["Sales"]]
+
+#Model
+
+X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.20, random_state=1)
