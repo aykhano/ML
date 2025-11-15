@@ -187,4 +187,18 @@ def train(Y, initial_b, initial_w, X, learning_rate, num_iters):
         if i % 100 == 0:
             print("iter={:d}    b={:.2f}    w={:.4f}    mse={:.4}".format(i, b, w, mse))
     print("After {0} iterations b = {1}, w = {2}, mse = {3}".format(num_iters, b, w, cost_function(Y, b, w, X)))
-    
+    return cost_history, b, w 
+
+df = pd.read_csv("datasets/advertising.csv")
+
+X = df["radio"]
+Y = df["sales"]
+
+# hyperparametrs
+learning_rate = 0.001
+initial_b = 0.001
+initial_w = 0.001
+num_iters = 10000
+
+cost_history, b, w = train(Y, initial_b, initial_w, X, learning_rate, num_iters)
+
