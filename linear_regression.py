@@ -201,4 +201,3 @@ initial_w = 0.001
 num_iters = 10000
 
 cost_history, b, w = train(Y, initial_b, initial_w, X, learning_rate, num_iters)
-
