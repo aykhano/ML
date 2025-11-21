@@ -178,3 +178,40 @@ y_prob = log_model.predict_proba(X_test)[:, 1]
 print(classification_report(y_test, y_pred))
 
 
+RocCurveDisplay.from_estimator(log_model, X_test, y_test)
+plt.title('ROC Curve')
+plt.plot([0, 1], [0, 1], 'r--')
+plt.show()
+
+#AUC
+roc_auc_score(y_test, y_prob)
+
+# Model Validation: 10-Fold Cross Validation
+
+y = df["Outcome"]
+X = df.drop(["Outcome"], axis=1)
+
+log_model = LogisticRegression().fit(X, y)
+
+cv_results = cross_validate(log_model,
+                            X, y, 
+                            cv=5, 
+                            scoring=["accuracy", "precision", "recall", "f1", "roc_auc"])
+
+cv_results['test_accuracy'].mean()
+
+cv_results['test_precision'].mean()
+
+cv_results['test_recall'].mean()
+
+cv_results['test_f1'].mean()
+
+cv_results['test_roc_auc'].mean()
+
+#prediction for a new observation
+
+X.columns
+
+random_user = X.sample(1, random_state=45)
+log_model.predict()
+
