@@ -52,3 +52,36 @@ print(classification_report(y, y_pred))
 roc_auc_score(y, y_prob)
 
 cv_results = cross_validate(knn_model, X, y, cv=5, scoring=["accuracy", "f1", "roc_auc"])
+
+cv_results['test_accuracy'].mean()
+cv_results['test_f1'].mean()
+cv_results['test_roc_auc'].mean()
+
+# 1. Sample size can be increased.
+# 2. Data preprocessing
+# 3. Feature engineering
+# 4. Optimizations can be made for the relevant algorithm.
+
+knn_model.get_params()
+
+# Hyperparametr Optimization
+
+knn_model = KNeighborsClassifier()
+knn_model.get_params()
+
+knn_params = {"n_neighbors": range(2, 50)}
+
+knn_gs_best = GridSearchCV(knn_model,
+                           knn_params, 
+                           cv=5, 
+                           n_jobs=-1, 
+                           verbose=1).fit(X, y)
+
+knn_gs_best.best_params_
+
+# Final Model
+
+knn_model = knn_model.set_params(**knn_gs_best.best_params_).fit(X, y)
+
+random_user = X.sample(1)
+
